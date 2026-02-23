@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import fs from 'node:fs';
+import path from 'node:path';
 import Ajv2020 from 'ajv/dist/2020';
 import appStateSchema from './app-state.schema.json';
 import bedSchema from './bed.schema.json';
