@@ -1,3 +1,12 @@
+declare global {
+  interface ImportMeta {
+    glob: (
+      pattern: string,
+      options?: { eager?: boolean; import?: string },
+    ) => Record<string, unknown>;
+  }
+}
+
 import { describe, expect, it } from 'vitest';
 import Ajv2020 from 'ajv/dist/2020';
 import appStateSchema from './app-state.schema.json';
