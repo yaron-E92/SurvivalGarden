@@ -1,283 +1,776 @@
 {
-  "schemaVersion": 1,
   "beds": [
     {
       "bedId": "bed_001",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 1",
       "notes": "Approx area 18 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     },
     {
       "bedId": "bed_002",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 2",
       "notes": "Approx area 18 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     },
     {
       "bedId": "bed_003",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 3",
       "notes": "Approx area 17 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     },
     {
       "bedId": "bed_004",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 4",
       "notes": "Approx area 17 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     },
     {
       "bedId": "bed_005",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 5",
       "notes": "Approx area 18 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     },
     {
       "bedId": "bed_006",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 6",
       "notes": "Approx area 18 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     },
     {
       "bedId": "bed_007",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 7",
       "notes": "Approx area 17 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     },
     {
       "bedId": "bed_008",
+      "createdAt": "2026-01-05T00:00:00Z",
       "gardenId": "garden_trier_001",
       "name": "Bed 8",
       "notes": "Approx area 17 m² (documented in notes; no dedicated area field in current schema).",
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    }
-  ],
-  "crops": [
-    {
-      "cropId": "crop_potato",
-      "name": "Potato",
-      "category": "root",
-      "companionsGood": ["crop_beans", "crop_peas"],
-      "companionsAvoid": ["crop_tomato"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 3, "startWeek": 2, "endMonth": 4, "endWeek": 4 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 4, "startWeek": 1, "endMonth": 5, "endWeek": 1 }], "notes": "Direct-set seed potatoes; transplant window retained for schema completeness." },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 7, "startWeek": 1, "endMonth": 9, "endWeek": 4 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 8, "startWeek": 1, "endMonth": 11, "endWeek": 4 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "kcal", "value": 77, "unit": "kcal", "source": "USDA", "assumptions": "Per 100g edible portion." }],
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    },
-    {
-      "cropId": "crop_beans",
-      "name": "Beans",
-      "category": "legume",
-      "companionsGood": ["crop_carrot", "crop_cabbage"],
-      "companionsAvoid": ["crop_onion_leek"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 5, "startWeek": 1, "endMonth": 6, "endWeek": 3 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 5, "startWeek": 2, "endMonth": 6, "endWeek": 4 }] },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 7, "startWeek": 2, "endMonth": 10, "endWeek": 2 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 8, "startWeek": 1, "endMonth": 10, "endWeek": 4 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "protein", "value": 8.7, "unit": "g", "source": "USDA", "assumptions": "Per 100g cooked." }],
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    },
-    {
-      "cropId": "crop_peas",
-      "name": "Peas",
-      "category": "legume",
-      "companionsGood": ["crop_carrot"],
-      "companionsAvoid": ["crop_onion_leek"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 3, "startWeek": 1, "endMonth": 4, "endWeek": 3 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 3, "startWeek": 2, "endMonth": 4, "endWeek": 4 }] },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 6, "startWeek": 1, "endMonth": 8, "endWeek": 1 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 6, "startWeek": 2, "endMonth": 8, "endWeek": 4 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "fiber", "value": 5.1, "unit": "g", "source": "USDA", "assumptions": "Per 100g cooked." }],
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    },
-    {
-      "cropId": "crop_carrot",
-      "name": "Carrot",
-      "category": "root",
-      "companionsGood": ["crop_onion_leek", "crop_peas"],
-      "companionsAvoid": ["crop_tomato"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 3, "startWeek": 3, "endMonth": 6, "endWeek": 2 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 4, "startWeek": 1, "endMonth": 6, "endWeek": 3 }], "notes": "Typically direct sown; transplant window retained for schema completeness." },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 6, "startWeek": 3, "endMonth": 11, "endWeek": 2 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 9, "startWeek": 1, "endMonth": 12, "endWeek": 2 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "vitamin_a", "value": 835, "unit": "mcg", "source": "USDA", "assumptions": "Per 100g raw." }],
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    },
-    {
-      "cropId": "crop_onion_leek",
-      "name": "Onion/Leek",
-      "category": "allium",
-      "companionsGood": ["crop_carrot", "crop_cabbage"],
-      "companionsAvoid": ["crop_beans", "crop_peas"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 2, "startWeek": 3, "endMonth": 4, "endWeek": 3 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 4, "startWeek": 1, "endMonth": 6, "endWeek": 1 }] },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 7, "startWeek": 1, "endMonth": 10, "endWeek": 3 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 8, "startWeek": 1, "endMonth": 12, "endWeek": 4 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "vitamin_c", "value": 7.4, "unit": "mg", "source": "USDA", "assumptions": "Per 100g raw onion." }],
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    },
-    {
-      "cropId": "crop_cabbage",
-      "name": "Cabbage Family",
-      "category": "brassica",
-      "companionsGood": ["crop_onion_leek", "crop_beans"],
-      "companionsAvoid": ["crop_tomato"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 2, "startWeek": 4, "endMonth": 5, "endWeek": 2 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 4, "startWeek": 1, "endMonth": 6, "endWeek": 2 }] },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 6, "startWeek": 4, "endMonth": 11, "endWeek": 2 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 8, "startWeek": 1, "endMonth": 12, "endWeek": 4 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "vitamin_k", "value": 76, "unit": "mcg", "source": "USDA", "assumptions": "Per 100g raw green cabbage." }],
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    },
-    {
-      "cropId": "crop_tomato",
-      "name": "Tomato",
-      "category": "fruit",
-      "companionsGood": ["crop_onion_leek"],
-      "companionsAvoid": ["crop_potato", "crop_cabbage"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 3, "startWeek": 1, "endMonth": 4, "endWeek": 2 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 5, "startWeek": 1, "endMonth": 6, "endWeek": 1 }] },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 7, "startWeek": 2, "endMonth": 10, "endWeek": 2 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 8, "startWeek": 1, "endMonth": 10, "endWeek": 4 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "vitamin_c", "value": 14, "unit": "mg", "source": "USDA", "assumptions": "Per 100g raw." }],
-      "createdAt": "2026-01-05T00:00:00Z",
-      "updatedAt": "2026-01-05T00:00:00Z"
-    },
-    {
-      "cropId": "crop_squash",
-      "name": "Squash",
-      "category": "fruit",
-      "companionsGood": ["crop_beans"],
-      "companionsAvoid": ["crop_potato"],
-      "rules": {
-        "sowing": { "sequence": 1, "windows": [{ "startMonth": 4, "startWeek": 3, "endMonth": 6, "endWeek": 1 }] },
-        "transplant": { "sequence": 2, "windows": [{ "startMonth": 5, "startWeek": 1, "endMonth": 6, "endWeek": 2 }] },
-        "harvest": { "sequence": 3, "windows": [{ "startMonth": 8, "startWeek": 1, "endMonth": 10, "endWeek": 4 }] },
-        "storage": { "sequence": 4, "windows": [{ "startMonth": 9, "startWeek": 1, "endMonth": 12, "endWeek": 3 }] }
-      },
-      "nutritionProfile": [{ "nutrient": "vitamin_c", "value": 12, "unit": "mg", "source": "USDA", "assumptions": "Per 100g cooked winter squash." }],
-      "createdAt": "2026-01-05T00:00:00Z",
       "updatedAt": "2026-01-05T00:00:00Z"
     }
   ],
   "cropPlans": [
     {
+      "bedId": "bed_001",
+      "cropId": "crop_potato",
+      "expectedYield": {
+        "amount": 30,
+        "unit": "kg"
+      },
       "planId": "plan_001",
-      "cropId": "crop_potato",
-      "bedId": "bed_001",
-      "seasonYear": 2026,
       "plannedWindows": {
-        "sowing": [{ "startMonth": 3, "startWeek": 2, "endMonth": 4, "endWeek": 4 }],
-        "harvest": [{ "startMonth": 7, "startWeek": 1, "endMonth": 9, "endWeek": 4 }]
+        "harvest": [
+          {
+            "endMonth": 9,
+            "endWeek": 4,
+            "startMonth": 7,
+            "startWeek": 1
+          }
+        ],
+        "sowing": [
+          {
+            "endMonth": 4,
+            "endWeek": 4,
+            "startMonth": 3,
+            "startWeek": 2
+          }
+        ]
       },
-      "expectedYield": { "amount": 30, "unit": "kg" }
+      "seasonYear": 2026
     },
     {
-      "planId": "plan_002",
-      "cropId": "crop_beans",
       "bedId": "bed_002",
-      "seasonYear": 2026,
-      "plannedWindows": {
-        "sowing": [{ "startMonth": 5, "startWeek": 1, "endMonth": 6, "endWeek": 3 }],
-        "harvest": [{ "startMonth": 7, "startWeek": 2, "endMonth": 10, "endWeek": 2 }]
+      "cropId": "crop_beans",
+      "expectedYield": {
+        "amount": 12,
+        "unit": "kg"
       },
-      "expectedYield": { "amount": 12, "unit": "kg" }
+      "planId": "plan_002",
+      "plannedWindows": {
+        "harvest": [
+          {
+            "endMonth": 10,
+            "endWeek": 2,
+            "startMonth": 7,
+            "startWeek": 2
+          }
+        ],
+        "sowing": [
+          {
+            "endMonth": 6,
+            "endWeek": 3,
+            "startMonth": 5,
+            "startWeek": 1
+          }
+        ]
+      },
+      "seasonYear": 2026
     },
     {
-      "planId": "plan_003",
-      "cropId": "crop_peas",
       "bedId": "bed_003",
-      "seasonYear": 2026,
-      "plannedWindows": {
-        "sowing": [{ "startMonth": 3, "startWeek": 1, "endMonth": 4, "endWeek": 3 }],
-        "harvest": [{ "startMonth": 6, "startWeek": 1, "endMonth": 8, "endWeek": 1 }]
+      "cropId": "crop_peas",
+      "expectedYield": {
+        "amount": 10,
+        "unit": "kg"
       },
-      "expectedYield": { "amount": 10, "unit": "kg" }
+      "planId": "plan_003",
+      "plannedWindows": {
+        "harvest": [
+          {
+            "endMonth": 8,
+            "endWeek": 1,
+            "startMonth": 6,
+            "startWeek": 1
+          }
+        ],
+        "sowing": [
+          {
+            "endMonth": 4,
+            "endWeek": 3,
+            "startMonth": 3,
+            "startWeek": 1
+          }
+        ]
+      },
+      "seasonYear": 2026
     },
     {
-      "planId": "plan_004",
-      "cropId": "crop_carrot",
       "bedId": "bed_004",
-      "seasonYear": 2026,
-      "plannedWindows": {
-        "sowing": [{ "startMonth": 3, "startWeek": 3, "endMonth": 6, "endWeek": 2 }],
-        "harvest": [{ "startMonth": 6, "startWeek": 3, "endMonth": 11, "endWeek": 2 }]
+      "cropId": "crop_carrot",
+      "expectedYield": {
+        "amount": 18,
+        "unit": "kg"
       },
-      "expectedYield": { "amount": 18, "unit": "kg" }
+      "planId": "plan_004",
+      "plannedWindows": {
+        "harvest": [
+          {
+            "endMonth": 11,
+            "endWeek": 2,
+            "startMonth": 6,
+            "startWeek": 3
+          }
+        ],
+        "sowing": [
+          {
+            "endMonth": 6,
+            "endWeek": 2,
+            "startMonth": 3,
+            "startWeek": 3
+          }
+        ]
+      },
+      "seasonYear": 2026
     }
   ],
-  "tasks": [
+  "crops": [
     {
-      "id": "task_001",
-      "sourceKey": "plan_001:sowing",
-      "date": "2026-03-15",
-      "type": "sow",
-      "cropId": "crop_potato",
-      "bedId": "bed_001",
-      "batchId": "batch_001",
-      "checklist": [],
-      "status": "open"
-    }
-  ],
-  "seedInventoryItems": [
-    {
-      "seedInventoryItemId": "seed_001",
-      "cropId": "crop_potato",
-      "variety": "Bintje",
-      "quantity": 2000,
-      "unit": "g",
-      "status": "available",
-      "notes": "Seed tubers represented as grams for MVP fixture simplicity.",
+      "category": "root",
+      "companionsAvoid": [
+        "crop_tomato"
+      ],
+      "companionsGood": [
+        "crop_beans",
+        "crop_peas"
+      ],
       "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_potato",
+      "name": "Potato",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g edible portion.",
+          "nutrient": "kcal",
+          "source": "USDA",
+          "unit": "kcal",
+          "value": 77
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 9,
+              "endWeek": 4,
+              "startMonth": 7,
+              "startWeek": 1
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 4,
+              "endWeek": 4,
+              "startMonth": 3,
+              "startWeek": 2
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 11,
+              "endWeek": 4,
+              "startMonth": 8,
+              "startWeek": 1
+            }
+          ]
+        },
+        "transplant": {
+          "notes": "Direct-set seed potatoes; transplant window retained for schema completeness.",
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 5,
+              "endWeek": 1,
+              "startMonth": 4,
+              "startWeek": 1
+            }
+          ]
+        }
+      },
+      "updatedAt": "2026-01-05T00:00:00Z"
+    },
+    {
+      "category": "legume",
+      "companionsAvoid": [
+        "crop_onion_leek"
+      ],
+      "companionsGood": [
+        "crop_carrot",
+        "crop_cabbage"
+      ],
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_beans",
+      "name": "Beans",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g cooked.",
+          "nutrient": "protein",
+          "source": "USDA",
+          "unit": "g",
+          "value": 8.7
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 10,
+              "endWeek": 2,
+              "startMonth": 7,
+              "startWeek": 2
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 3,
+              "startMonth": 5,
+              "startWeek": 1
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 10,
+              "endWeek": 4,
+              "startMonth": 8,
+              "startWeek": 1
+            }
+          ]
+        },
+        "transplant": {
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 4,
+              "startMonth": 5,
+              "startWeek": 2
+            }
+          ]
+        }
+      },
+      "updatedAt": "2026-01-05T00:00:00Z"
+    },
+    {
+      "category": "legume",
+      "companionsAvoid": [
+        "crop_onion_leek"
+      ],
+      "companionsGood": [
+        "crop_carrot"
+      ],
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_peas",
+      "name": "Peas",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g cooked.",
+          "nutrient": "fiber",
+          "source": "USDA",
+          "unit": "g",
+          "value": 5.1
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 8,
+              "endWeek": 1,
+              "startMonth": 6,
+              "startWeek": 1
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 4,
+              "endWeek": 3,
+              "startMonth": 3,
+              "startWeek": 1
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 8,
+              "endWeek": 4,
+              "startMonth": 6,
+              "startWeek": 2
+            }
+          ]
+        },
+        "transplant": {
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 4,
+              "endWeek": 4,
+              "startMonth": 3,
+              "startWeek": 2
+            }
+          ]
+        }
+      },
+      "updatedAt": "2026-01-05T00:00:00Z"
+    },
+    {
+      "category": "root",
+      "companionsAvoid": [
+        "crop_tomato"
+      ],
+      "companionsGood": [
+        "crop_onion_leek",
+        "crop_peas"
+      ],
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_carrot",
+      "name": "Carrot",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g raw.",
+          "nutrient": "vitamin_a",
+          "source": "USDA",
+          "unit": "mcg",
+          "value": 835
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 11,
+              "endWeek": 2,
+              "startMonth": 6,
+              "startWeek": 3
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 2,
+              "startMonth": 3,
+              "startWeek": 3
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 12,
+              "endWeek": 2,
+              "startMonth": 9,
+              "startWeek": 1
+            }
+          ]
+        },
+        "transplant": {
+          "notes": "Typically direct sown; transplant window retained for schema completeness.",
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 3,
+              "startMonth": 4,
+              "startWeek": 1
+            }
+          ]
+        }
+      },
+      "updatedAt": "2026-01-05T00:00:00Z"
+    },
+    {
+      "category": "allium",
+      "companionsAvoid": [
+        "crop_beans",
+        "crop_peas"
+      ],
+      "companionsGood": [
+        "crop_carrot",
+        "crop_cabbage"
+      ],
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_onion_leek",
+      "name": "Onion/Leek",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g raw onion.",
+          "nutrient": "vitamin_c",
+          "source": "USDA",
+          "unit": "mg",
+          "value": 7.4
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 10,
+              "endWeek": 3,
+              "startMonth": 7,
+              "startWeek": 1
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 4,
+              "endWeek": 3,
+              "startMonth": 2,
+              "startWeek": 3
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 12,
+              "endWeek": 4,
+              "startMonth": 8,
+              "startWeek": 1
+            }
+          ]
+        },
+        "transplant": {
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 1,
+              "startMonth": 4,
+              "startWeek": 1
+            }
+          ]
+        }
+      },
+      "updatedAt": "2026-01-05T00:00:00Z"
+    },
+    {
+      "category": "brassica",
+      "companionsAvoid": [
+        "crop_tomato"
+      ],
+      "companionsGood": [
+        "crop_onion_leek",
+        "crop_beans"
+      ],
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_cabbage",
+      "name": "Cabbage Family",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g raw green cabbage.",
+          "nutrient": "vitamin_k",
+          "source": "USDA",
+          "unit": "mcg",
+          "value": 76
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 11,
+              "endWeek": 2,
+              "startMonth": 6,
+              "startWeek": 4
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 5,
+              "endWeek": 2,
+              "startMonth": 2,
+              "startWeek": 4
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 12,
+              "endWeek": 4,
+              "startMonth": 8,
+              "startWeek": 1
+            }
+          ]
+        },
+        "transplant": {
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 2,
+              "startMonth": 4,
+              "startWeek": 1
+            }
+          ]
+        }
+      },
+      "updatedAt": "2026-01-05T00:00:00Z"
+    },
+    {
+      "category": "fruit",
+      "companionsAvoid": [
+        "crop_potato",
+        "crop_cabbage"
+      ],
+      "companionsGood": [
+        "crop_onion_leek"
+      ],
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_tomato",
+      "name": "Tomato",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g raw.",
+          "nutrient": "vitamin_c",
+          "source": "USDA",
+          "unit": "mg",
+          "value": 14
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 10,
+              "endWeek": 2,
+              "startMonth": 7,
+              "startWeek": 2
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 4,
+              "endWeek": 2,
+              "startMonth": 3,
+              "startWeek": 1
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 10,
+              "endWeek": 4,
+              "startMonth": 8,
+              "startWeek": 1
+            }
+          ]
+        },
+        "transplant": {
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 1,
+              "startMonth": 5,
+              "startWeek": 1
+            }
+          ]
+        }
+      },
+      "updatedAt": "2026-01-05T00:00:00Z"
+    },
+    {
+      "category": "fruit",
+      "companionsAvoid": [
+        "crop_potato"
+      ],
+      "companionsGood": [
+        "crop_beans"
+      ],
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_squash",
+      "name": "Squash",
+      "nutritionProfile": [
+        {
+          "assumptions": "Per 100g cooked winter squash.",
+          "nutrient": "vitamin_c",
+          "source": "USDA",
+          "unit": "mg",
+          "value": 12
+        }
+      ],
+      "rules": {
+        "harvest": {
+          "sequence": 3,
+          "windows": [
+            {
+              "endMonth": 10,
+              "endWeek": 4,
+              "startMonth": 8,
+              "startWeek": 1
+            }
+          ]
+        },
+        "sowing": {
+          "sequence": 1,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 1,
+              "startMonth": 4,
+              "startWeek": 3
+            }
+          ]
+        },
+        "storage": {
+          "sequence": 4,
+          "windows": [
+            {
+              "endMonth": 12,
+              "endWeek": 3,
+              "startMonth": 9,
+              "startWeek": 1
+            }
+          ]
+        },
+        "transplant": {
+          "sequence": 2,
+          "windows": [
+            {
+              "endMonth": 6,
+              "endWeek": 2,
+              "startMonth": 5,
+              "startWeek": 1
+            }
+          ]
+        }
+      },
       "updatedAt": "2026-01-05T00:00:00Z"
     }
   ],
+  "schemaVersion": 1,
+  "seedInventoryItems": [
+    {
+      "createdAt": "2026-01-05T00:00:00Z",
+      "cropId": "crop_potato",
+      "notes": "Seed tubers represented as grams for MVP fixture simplicity.",
+      "quantity": 2000,
+      "seedInventoryItemId": "seed_001",
+      "status": "available",
+      "unit": "g",
+      "updatedAt": "2026-01-05T00:00:00Z",
+      "variety": "Bintje"
+    }
+  ],
   "settings": {
-    "settingsId": "settings_001",
+    "createdAt": "2026-01-05T00:00:00Z",
     "locale": "de-DE",
+    "settingsId": "settings_001",
     "timezone": "Europe/Berlin",
-    "weekStartsOn": "monday",
     "units": {
       "temperature": "celsius",
       "yield": "metric"
     },
-    "createdAt": "2026-01-05T00:00:00Z",
-    "updatedAt": "2026-01-05T00:00:00Z"
-  }
+    "updatedAt": "2026-01-05T00:00:00Z",
+    "weekStartsOn": "monday"
+  },
+  "tasks": [
+    {
+      "batchId": "batch_001",
+      "bedId": "bed_001",
+      "checklist": [],
+      "cropId": "crop_potato",
+      "date": "2026-03-15",
+      "id": "task_001",
+      "sourceKey": "plan_001:sowing",
+      "status": "open",
+      "type": "sow"
+    }
+  ]
 }
