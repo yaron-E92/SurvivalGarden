@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://survivalgarden/contracts/crop.schema.json",
-  "title": "Crop",
+  "title": "Crop (Cultivar)",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -50,7 +50,8 @@
     "name": {
       "type": "string",
       "minLength": 1,
-      "maxLength": 120
+      "maxLength": 120,
+      "description": "Display name for the cultivar/variety record."
     },
     "cultivar": {
       "type": "string",
@@ -60,7 +61,7 @@
     },
     "speciesId": {
       "$ref": "#/$defs/id",
-      "description": "Reference to a top-level species record for this cultivar/crop."
+      "description": "Required reference to a top-level species record for this cultivar/crop."
     },
     "species": {
       "type": "object",
@@ -211,7 +212,7 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 120,
-      "description": "Migration alias for name."
+      "description": "Migration alias for the cultivar/variety display name."
     },
     "defaults": {
       "type": "object",

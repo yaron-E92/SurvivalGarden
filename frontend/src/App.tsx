@@ -1805,6 +1805,11 @@ const getCropSpeciesScientificName = (crop: Crop): string => {
   return speciesScientificName ?? (crop as { scientificName?: string }).scientificName ?? '';
 };
 
+const getCropSpeciesCommonName = (crop: Crop): string => {
+  const speciesCommonName = (crop as Crop & { species?: { commonName?: string } }).species?.commonName;
+  return speciesCommonName ?? '';
+};
+
 const formatCropOptionLabel = (crop: { cropId: string; name: string | undefined; scientificName: string | undefined }) => {
   if (crop.name && crop.scientificName) {
     return `${crop.name} (${crop.scientificName})`;
@@ -2177,6 +2182,10 @@ function BatchesPage() {
       errors.cultivar = 'Cultivar is required.';
     }
 
+    if (!cropEditValues.speciesId.trim()) {
+      errors.speciesId = 'Species ID is required.';
+    }
+
     if (cropEditValues.speciesScientificName.trim().length > 160) {
       errors.speciesScientificName = 'Species scientific name must be 160 characters or fewer.';
     }
@@ -2218,21 +2227,21 @@ function BatchesPage() {
       const nextCrop = {
         ...existingCrop,
         cropId: existingCrop.cropId,
-        name: speciesCommonName || cultivar,
+        name: cultivar,
         cultivar,
-        ...(speciesId ? { speciesId } : {}),
+        speciesId,
         ...(aliases.length > 0 ? { aliases } : {}),
         species:
           speciesCommonName && speciesScientificName
             ? {
-                ...(speciesId ? { id: speciesId } : {}),
+                id: speciesId,
                 commonName: speciesCommonName,
                 scientificName: speciesScientificName,
               }
             : undefined,
         meta: {
           ...existingMeta,
-            ...(cropEditValues.notes.trim() ? { notes: cropEditValues.notes.trim() } : {}),
+          ...(cropEditValues.notes.trim() ? { notes: cropEditValues.notes.trim() } : {}),
           ...(varieties.length > 0 ? { varieties } : {}),
           ...(cropEditValues.spacing.trim() ? { spacing: cropEditValues.spacing.trim() } : {}),
           ...(cropEditValues.sowingTransplant.trim() ? { sowingTransplant: cropEditValues.sowingTransplant.trim() } : {}),
@@ -2269,7 +2278,7 @@ function BatchesPage() {
               ...current,
               cropInput: formatCropOptionLabel({
                 cropId: existingCrop.cropId,
-                name: speciesCommonName || cultivar,
+                name: cultivar,
                 scientificName: speciesScientificName || undefined,
               }),
             }
@@ -2815,7 +2824,7 @@ function BatchesPage() {
 
 
       <form className="batch-form" onSubmit={(event) => void handleCropEditSubmit(event)}>
-        <h3>Edit crop metadata</h3>
+        <h3>Edit crop cultivar metadata</h3>
         <div className="batch-form-grid">
           <label>
             Crop
@@ -2870,6 +2879,7 @@ function BatchesPage() {
               value={cropEditValues.speciesId}
               onChange={(event) => setCropEditValues((current) => ({ ...current, speciesId: event.target.value }))}
             />
+            {cropEditErrors.speciesId ? <span className="form-error">{cropEditErrors.speciesId}</span> : null}
           </label>
 
           <label>
@@ -5370,7 +5380,8 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         />
       </label>
       <p>Expected format: {'{ "batches": [ ... ] }'}</p>
-      <p>Crop import endpoint contract: <code>POST /api/import/crops</code> with <code>{'{ "crops": [ { "cropId": "...", "cultivar": "...", "speciesId": "...", "species": { "commonName": "...", "scientificName": "..." } } ] }'}</code>.</p>
+      <p>Crop import endpoint contract: <code>POST /api/import/crops</code> with <code>{'{ "crops": [ { "cropId": "...", "cultivar": "...", "speciesId": "...", "species": { "id": "...", "commonName": "...", "scientificName": "..." } } ] }'}</code>.</p>
+      <p>Legacy species-level crop imports are auto-migrated into cultivar records using the deterministic placeholder <code>Unknown variety</code> when no cultivar is provided.</p>
       <p>Crop plan import endpoint contract: <code>POST /api/import/crop-plans</code> with <code>{'{ "cropPlans": [ ... ] }'}</code>.</p>
       <p>Segment import endpoint contract: <code>POST /api/import/segments</code> with <code>{'{ "segments": [ ... ] }'}</code>.</p>
       <p>
@@ -5451,7 +5462,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
             <h3>Crop Import Preview</h3>
             <ul>
               {pendingCropImportCrops.slice(0, 5).map((crop) => (
-                <li key={crop.cropId}>{(crop as Crop & { cultivar?: string }).cultivar ?? crop.name} — {(crop as Crop & { species?: { commonName?: string } }).species?.commonName ?? crop.name} ({crop.cropId})</li>
+                <li key={crop.cropId}>{(crop as Crop & { cultivar?: string }).cultivar ?? crop.name} — {getCropSpeciesCommonName(crop) || crop.cropId} ({crop.cropId})</li>
               ))}
             </ul>
           </section>

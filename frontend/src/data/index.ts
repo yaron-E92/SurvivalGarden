@@ -68,6 +68,7 @@ const PHOTO_BLOB_STORE = 'photoBlobsById';
 const SCHEMA_VERSION_KEY = 'schemaVersion';
 
 const LEGACY_BED_TYPE = 'vegetable_bed';
+const UNKNOWN_VARIETY_PLACEHOLDER = 'Unknown variety';
 
 type LayoutMigrationWarningCode =
   | 'legacy_layout_segment_created'
@@ -93,6 +94,110 @@ const addTypeToLegacyBed = <T extends Record<string, unknown>>(bed: T): T => ({
   ...bed,
   type: typeof bed.type === 'string' ? bed.type : LEGACY_BED_TYPE,
 });
+
+const asRecord = (value: unknown): Record<string, unknown> =>
+  value && typeof value === 'object' ? (value as Record<string, unknown>) : {};
+
+const asNonEmptyString = (value: unknown): string | null => {
+  if (typeof value !== 'string') {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+};
+
+const slugifyForId = (value: string): string =>
+  value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    || 'unknown';
+
+const buildDeterministicSpeciesId = (commonName: string | null, scientificName: string | null): string =>
+  `species_${slugifyForId(commonName ?? scientificName ?? 'unknown')}`;
+
+const migrateLegacyCropSemantics = (payload: unknown): unknown => {
+  if (!payload || typeof payload !== 'object') {
+    return payload;
+  }
+
+  const state = payload as Record<string, unknown>;
+  if (!Array.isArray(state.crops)) {
+    return payload;
+  }
+
+  const speciesRecords = Array.isArray(state.species)
+    ? state.species.filter((entry): entry is Record<string, unknown> => Boolean(entry && typeof entry === 'object'))
+    : [];
+  const speciesById = new Map<string, Record<string, unknown>>();
+
+  speciesRecords.forEach((entry) => {
+    const id = asNonEmptyString(entry.id);
+    if (id) {
+      speciesById.set(id, entry);
+    }
+  });
+
+  const crops = state.crops.map((entry) => {
+    if (!entry || typeof entry !== 'object') {
+      return entry;
+    }
+
+    const crop = entry as Record<string, unknown>;
+    const embeddedSpecies = asRecord(crop.species);
+    const existingSpeciesId =
+      asNonEmptyString(crop.speciesId)
+      ?? asNonEmptyString(embeddedSpecies.id);
+    const currentName = asNonEmptyString(crop.name) ?? asNonEmptyString(crop.commonName);
+    const speciesCommonName = asNonEmptyString(embeddedSpecies.commonName) ?? currentName;
+    const speciesScientificName =
+      asNonEmptyString(embeddedSpecies.scientificName)
+      ?? asNonEmptyString(crop.scientificName);
+    const speciesId = existingSpeciesId ?? buildDeterministicSpeciesId(speciesCommonName, speciesScientificName);
+    const isLegacySpeciesLevelCrop = !asNonEmptyString(crop.cultivar) && !existingSpeciesId;
+    const cultivar = asNonEmptyString(crop.cultivar)
+      ?? (isLegacySpeciesLevelCrop ? UNKNOWN_VARIETY_PLACEHOLDER : currentName)
+      ?? UNKNOWN_VARIETY_PLACEHOLDER;
+
+    if (!speciesById.has(speciesId) && speciesCommonName && speciesScientificName) {
+      speciesById.set(speciesId, {
+        id: speciesId,
+        commonName: speciesCommonName,
+        scientificName: speciesScientificName,
+        ...(embeddedSpecies.taxonomy && typeof embeddedSpecies.taxonomy === 'object'
+          ? { taxonomy: embeddedSpecies.taxonomy }
+          : {}),
+      });
+    }
+
+    return {
+      ...crop,
+      name: cultivar,
+      cultivar,
+      speciesId,
+      ...(speciesCommonName && speciesScientificName
+        ? {
+            species: {
+              id: speciesId,
+              commonName: speciesCommonName,
+              scientificName: speciesScientificName,
+              ...(embeddedSpecies.taxonomy && typeof embeddedSpecies.taxonomy === 'object'
+                ? { taxonomy: embeddedSpecies.taxonomy }
+                : {}),
+            },
+          }
+        : {}),
+    };
+  });
+
+  return {
+    ...state,
+    crops,
+    ...(speciesById.size > 0 ? { species: Array.from(speciesById.values()) } : {}),
+  };
+};
 
 const migrateLegacyBedTypes = (payload: unknown): unknown => {
   if (!payload || typeof payload !== 'object') {
@@ -469,7 +574,7 @@ export {
 
 export const parseImportedAppState = (rawPayload: string): AppState => {
   const parsed: unknown = JSON.parse(rawPayload);
-  const migrationResult = migrateLegacyLayoutModel(migrateLegacyBedTypes(parsed));
+  const migrationResult = migrateLegacyLayoutModel(migrateLegacyCropSemantics(migrateLegacyBedTypes(parsed)));
 
   if (migrationResult.report.warnings.length > 0) {
     console.warn('AppState migration warnings', migrationResult.report.warnings);
