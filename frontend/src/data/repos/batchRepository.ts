@@ -118,7 +118,7 @@ const detectPropagationType = (candidate: Record<string, unknown>): Batch['propa
   return undefined;
 };
 
-const normalizeBatchCandidate = (value: unknown, options?: { forMigrationReport?: boolean }): unknown => {
+export const normalizeBatchCandidate = (value: unknown, options?: { forMigrationReport?: boolean }): unknown => {
   if (!value || typeof value !== 'object') {
     return {};
   }

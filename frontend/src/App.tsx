@@ -31,6 +31,8 @@ import {
   removeBatchFromBed,
   assertValid,
 } from './data';
+import { normalizeBatchCandidate } from './data/repos/batchRepository';
+import { validateSchema } from './data/validation';
 import { applyStageEvent, canTransition, inferBatchStartMethod } from './domain';
 
 type CultivarRecord = {
@@ -6432,7 +6434,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         throw new Error('Batch import payload must be an object with a batches array.');
       }
 
-      const validBatches: unknown[] = [];
+      const validBatches: Batch[] = [];
       const validationErrors: Array<{ path: string; message: string }> = [];
 
       rawParsed.batches.forEach((candidate, index) => {
@@ -6442,17 +6444,12 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
             : `index-${index}`;
 
         try {
-          const validatedSingleBatch = parseImportedAppState(JSON.stringify({
-            schemaVersion: 1,
-            beds: [],
-            crops: [],
-            cropPlans: [],
-            batches: [candidate],
-            seedInventoryItems: [],
-            tasks: [],
-            settings: importValidationSettings,
-          }));
-          validBatches.push(validatedSingleBatch.batches[0]);
+          const normalizedCandidate = normalizeBatchCandidate(candidate);
+          const validation = validateSchema('batch', normalizedCandidate);
+          if (!validation.ok) {
+            throw new SchemaValidationError('batch', validation.issues);
+          }
+          validBatches.push(validation.value);
         } catch (validationError) {
           validationErrors.push(...buildBatchValidationMessages(validationError, batchId, index));
         }
@@ -6464,7 +6461,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         return;
       }
 
-      const validatedBatchImportState = parseImportedAppState(JSON.stringify({
+      const validatedBatchImportState = {
         schemaVersion: 1,
         beds: [],
         crops: [],
@@ -6473,7 +6470,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         seedInventoryItems: [],
         tasks: [],
         settings: importValidationSettings,
-      }));
+      };
       const previewItems = validatedBatchImportState.batches.map((batch) => ({
         batchLabel: `${batch.variety ?? batch.cultivarId ?? batch.cropId ?? 'Unknown cultivar'} (${batch.cropTypeId ?? 'Unknown crop type'})`,
         seedCount: batch.seedCountPlanned ?? 0,
@@ -6539,20 +6536,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         const fallbackPath = `/crops/${index}`;
 
         try {
-          const validatedSingleCrop = parseImportedAppState(JSON.stringify({
-            schemaVersion: 1,
-            beds: [],
-            crops: [candidate],
-            cropPlans: [],
-            batches: [],
-            seedInventoryItems: [],
-            tasks: [],
-            settings: importValidationSettings,
-          }));
-          const validatedCrop = validatedSingleCrop.crops[0];
-          if (validatedCrop) {
-            validCrops.push(validatedCrop);
-          }
+          validCrops.push(assertValid('crop', candidate));
         } catch (validationError) {
           if (validationError instanceof SchemaValidationError && validationError.issues.length > 0) {
             validationErrors.push(
@@ -6627,21 +6611,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         const fallbackPath = `/species/${index}`;
 
         try {
-          const validatedSingleSpecies = parseImportedAppState(JSON.stringify({
-            schemaVersion: 1,
-            beds: [],
-            crops: [],
-            species: [candidate],
-            cropPlans: [],
-            batches: [],
-            seedInventoryItems: [],
-            tasks: [],
-            settings: importValidationSettings,
-          }));
-          const validatedSpecies = validatedSingleSpecies.species?.[0];
-          if (validatedSpecies) {
-            validSpecies.push(validatedSpecies);
-          }
+          validSpecies.push(assertValid('species', candidate));
         } catch (validationError) {
           if (validationError instanceof SchemaValidationError && validationError.issues.length > 0) {
             validationErrors.push(
@@ -6716,20 +6686,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         const fallbackPath = `/cropPlans/${index}`;
 
         try {
-          const validatedSinglePlan = parseImportedAppState(JSON.stringify({
-            schemaVersion: 1,
-            beds: [],
-            crops: [],
-            cropPlans: [candidate],
-            batches: [],
-            seedInventoryItems: [],
-            tasks: [],
-            settings: importValidationSettings,
-          }));
-          const validatedPlan = validatedSinglePlan.cropPlans[0];
-          if (validatedPlan) {
-            validCropPlans.push(validatedPlan);
-          }
+          validCropPlans.push(assertValid('cropPlan', candidate));
         } catch (validationError) {
           if (validationError instanceof SchemaValidationError && validationError.issues.length > 0) {
             validationErrors.push(
@@ -7376,7 +7333,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
           throw new Error('Deep-link payload must decode to an object with a batches array.');
         }
 
-        const validBatches: unknown[] = [];
+        const validBatches: Batch[] = [];
         const validationErrors: Array<{ path: string; message: string }> = [];
 
         rawParsed.batches.forEach((candidate, index) => {
@@ -7386,17 +7343,12 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
               : `index-${index}`;
 
           try {
-            const validatedSingleBatch = parseImportedAppState(JSON.stringify({
-              schemaVersion: 1,
-              beds: [],
-              crops: [],
-              cropPlans: [],
-              batches: [candidate],
-              seedInventoryItems: [],
-              tasks: [],
-              settings: importValidationSettings,
-            }));
-            validBatches.push(validatedSingleBatch.batches[0]);
+            const normalizedCandidate = normalizeBatchCandidate(candidate);
+            const validation = validateSchema('batch', normalizedCandidate);
+            if (!validation.ok) {
+              throw new SchemaValidationError('batch', validation.issues);
+            }
+            validBatches.push(validation.value);
           } catch (validationError) {
             validationErrors.push(...buildBatchValidationMessages(validationError, batchId, index));
           }
@@ -7406,7 +7358,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
           setImportMessage('Batch import failed. No valid batches passed validation. Validate JSON schema issues and retry.');
           setImportErrors(validationErrors);
         } else {
-          const validatedBatchImportState = parseImportedAppState(JSON.stringify({
+          const validatedBatchImportState = {
             schemaVersion: 1,
             beds: [],
             crops: [],
@@ -7415,7 +7367,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
             seedInventoryItems: [],
             tasks: [],
             settings: importValidationSettings,
-          }));
+          };
           const previewBatchIds = validatedBatchImportState.batches
             .map((batch) => ({
               batchLabel: `${batch.variety ?? batch.cultivarId ?? batch.cropId ?? 'Unknown cultivar'} (${batch.cropTypeId ?? 'Unknown crop type'})`,
@@ -7437,20 +7389,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         rawParsed.crops.forEach((candidate, index) => {
           const fallbackPath = `/crops/${index}`;
           try {
-            const validatedSingleCrop = parseImportedAppState(JSON.stringify({
-              schemaVersion: 1,
-              beds: [],
-              crops: [candidate],
-              cropPlans: [],
-              batches: [],
-              seedInventoryItems: [],
-              tasks: [],
-              settings: importValidationSettings,
-            }));
-            const validatedCrop = validatedSingleCrop.crops[0];
-            if (validatedCrop) {
-              validCrops.push(validatedCrop);
-            }
+            validCrops.push(assertValid('crop', candidate));
           } catch (validationError) {
             validationErrors.push({
               path: fallbackPath,
@@ -7476,21 +7415,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         rawParsed.species.forEach((candidate, index) => {
           const fallbackPath = `/species/${index}`;
           try {
-            const validatedSingleSpecies = parseImportedAppState(JSON.stringify({
-              schemaVersion: 1,
-              beds: [],
-              crops: [],
-              species: [candidate],
-              cropPlans: [],
-              batches: [],
-              seedInventoryItems: [],
-              tasks: [],
-              settings: importValidationSettings,
-            }));
-            const validatedSpecies = validatedSingleSpecies.species?.[0];
-            if (validatedSpecies) {
-              validSpecies.push(validatedSpecies);
-            }
+            validSpecies.push(assertValid('species', candidate));
           } catch (validationError) {
             validationErrors.push({
               path: fallbackPath,
@@ -7516,20 +7441,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         rawParsed.cropPlans.forEach((candidate, index) => {
           const fallbackPath = `/cropPlans/${index}`;
           try {
-            const validatedSinglePlan = parseImportedAppState(JSON.stringify({
-              schemaVersion: 1,
-              beds: [],
-              crops: [],
-              cropPlans: [candidate],
-              batches: [],
-              seedInventoryItems: [],
-              tasks: [],
-              settings: importValidationSettings,
-            }));
-            const validatedPlan = validatedSinglePlan.cropPlans[0];
-            if (validatedPlan) {
-              validCropPlans.push(validatedPlan);
-            }
+            validCropPlans.push(assertValid('cropPlan', candidate));
           } catch (validationError) {
             validationErrors.push({
               path: fallbackPath,
