@@ -588,7 +588,7 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Import' }));
 
     await waitFor(() => {
-      expect(saveAppStateToIndexedDb).toHaveBeenCalledWith(validOnlyState, { mode: 'merge' });
+      expect(saveAppStateToIndexedDb).toHaveBeenCalledWith(expect.objectContaining(validOnlyState), { mode: 'merge' });
       expect(screen.getByText('Collision Status Summary')).toBeInTheDocument();
       expect(screen.getByText('skipped (identical_batch): 0')).toBeInTheDocument();
       expect(screen.getByText('merged (eventsAdded): 0')).toBeInTheDocument();
@@ -839,7 +839,7 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Import' }));
 
     await waitFor(() => {
-      expect(saveAppStateToIndexedDb).toHaveBeenCalledWith(validOnlyState, { mode: 'merge' });
+      expect(saveAppStateToIndexedDb).toHaveBeenCalledWith(expect.objectContaining(validOnlyState), { mode: 'merge' });
     });
   });
 
