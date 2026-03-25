@@ -24,6 +24,7 @@ import type {
   SeedInventoryItem,
   Segment,
   Settings,
+  Species,
   Task,
 } from '../../contracts';
 
@@ -37,6 +38,7 @@ export type SchemaName =
   | 'seedInventoryItem'
   | 'segment'
   | 'settings'
+  | 'species'
   | 'task';
 
 export type SchemaTypeMap = {
@@ -49,6 +51,7 @@ export type SchemaTypeMap = {
   seedInventoryItem: SeedInventoryItem;
   segment: Segment;
   settings: Settings;
+  species: Species;
   task: Task;
 };
 
@@ -942,6 +945,7 @@ const validators: { [K in SchemaName]: ValidateFunction<SchemaTypeMap[K]> } = {
   seedInventoryItem: ajv.compile<SchemaTypeMap['seedInventoryItem']>(seedInventoryItemSchema),
   segment: ajv.compile<SchemaTypeMap['segment']>(segmentSchema),
   settings: ajv.compile<SchemaTypeMap['settings']>(settingsSchema),
+  species: ajv.compile<SchemaTypeMap['species']>(speciesSchema),
   task: ajv.compile<SchemaTypeMap['task']>(taskSchema),
 };
 

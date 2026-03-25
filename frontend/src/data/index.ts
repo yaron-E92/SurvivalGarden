@@ -28,6 +28,7 @@ export {
   getBatchFromAppState,
   listBatchesFromAppState,
   moveBatch,
+  normalizeBatchCandidate,
   removeBatchFromBed,
   removeBatchFromAppState,
   upsertBatchInAppState,
