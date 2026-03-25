@@ -32,7 +32,6 @@ import {
   assertValid,
 } from './data';
 import { normalizeBatchCandidate } from './data/repos/batchRepository';
-import { validateSchema } from './data/validation';
 import { applyStageEvent, canTransition, inferBatchStartMethod } from './domain';
 
 type CultivarRecord = {
@@ -6445,11 +6444,20 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
 
         try {
           const normalizedCandidate = normalizeBatchCandidate(candidate);
-          const validation = validateSchema('batch', normalizedCandidate);
-          if (!validation.ok) {
-            throw new SchemaValidationError('batch', validation.issues);
+          const validatedSingleBatch = parseImportedAppState(JSON.stringify({
+            schemaVersion: 1,
+            beds: [],
+            crops: [],
+            cropPlans: [],
+            batches: [normalizedCandidate],
+            seedInventoryItems: [],
+            tasks: [],
+            settings: importValidationSettings,
+          }));
+          const validatedBatch = validatedSingleBatch.batches[0];
+          if (validatedBatch) {
+            validBatches.push(validatedBatch);
           }
-          validBatches.push(validation.value);
         } catch (validationError) {
           validationErrors.push(...buildBatchValidationMessages(validationError, batchId, index));
         }
@@ -7344,11 +7352,20 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
 
           try {
             const normalizedCandidate = normalizeBatchCandidate(candidate);
-            const validation = validateSchema('batch', normalizedCandidate);
-            if (!validation.ok) {
-              throw new SchemaValidationError('batch', validation.issues);
+            const validatedSingleBatch = parseImportedAppState(JSON.stringify({
+              schemaVersion: 1,
+              beds: [],
+              crops: [],
+              cropPlans: [],
+              batches: [normalizedCandidate],
+              seedInventoryItems: [],
+              tasks: [],
+              settings: importValidationSettings,
+            }));
+            const validatedBatch = validatedSingleBatch.batches[0];
+            if (validatedBatch) {
+              validBatches.push(validatedBatch);
             }
-            validBatches.push(validation.value);
           } catch (validationError) {
             validationErrors.push(...buildBatchValidationMessages(validationError, batchId, index));
           }
