@@ -6469,7 +6469,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         return;
       }
 
-      const validatedBatchImportState = parseImportedAppState(JSON.stringify({
+      const validatedBatchImportState = {
         schemaVersion: 1,
         beds: [],
         crops: [],
@@ -6478,7 +6478,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
         seedInventoryItems: [],
         tasks: [],
         settings: importValidationSettings,
-      }));
+      };
       const previewItems = validatedBatchImportState.batches.map((batch) => ({
         batchLabel: `${batch.variety ?? batch.cultivarId ?? batch.cropId ?? 'Unknown cultivar'} (${batch.cropTypeId ?? 'Unknown crop type'})`,
         seedCount: batch.seedCountPlanned ?? 0,
@@ -7375,7 +7375,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
           setImportMessage('Batch import failed. No valid batches passed validation. Validate JSON schema issues and retry.');
           setImportErrors(validationErrors);
         } else {
-          const validatedBatchImportState = parseImportedAppState(JSON.stringify({
+          const validatedBatchImportState = {
             schemaVersion: 1,
             beds: [],
             crops: [],
@@ -7384,7 +7384,7 @@ function DataPage({ showDevResetButton, onResetToGoldenDataset }: DataPageProps)
             seedInventoryItems: [],
             tasks: [],
             settings: importValidationSettings,
-          }));
+          };
           const previewBatchIds = validatedBatchImportState.batches
             .map((batch) => ({
               batchLabel: `${batch.variety ?? batch.cultivarId ?? batch.cropId ?? 'Unknown cultivar'} (${batch.cropTypeId ?? 'Unknown crop type'})`,
