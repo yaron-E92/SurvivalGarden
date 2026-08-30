@@ -1,0 +1,7 @@
+# AutoDev roadmap v1 for yaron-E92/SurvivalGarden
+# #216 was closed as not planned because SurvivalGarden is explicitly excluded
+# from the shared CI-profile rollout.
+version: 1
+priority:
+  - issue: 214
+fallback: oldest
