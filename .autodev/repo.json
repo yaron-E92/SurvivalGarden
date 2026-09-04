@@ -1,0 +1,8 @@
+{
+  "ux": {
+    "enabled": true,
+    "artifact": "oci://ghcr.io/yaron-e92/ux/survivalgarden@sha256:ce106b4bae345dca7491445000ae9c753bd9ce18066c01e07a57480ce6df8063",
+    "product": "survivalgarden"
+  },
+  "version": 1
+}
